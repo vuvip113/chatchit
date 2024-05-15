@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:chatchit/ui/views/home/home.dart';
 import 'package:chatchit/ui/views/login/login.dart';
 import 'package:chatchit/ui/common/app_colors.dart';
 
