@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:chatchit/firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:chatchit/ui/views/login/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:chatchit/ui/common/app_colors.dart';
+import 'package:chatchit/ui/views/splash/splash.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then(
+    (value) {
+      _initializeFirebase();
+      runApp(const MyApp());
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +41,11 @@ class MyApp extends StatelessWidget {
           backgroundColor: orangeNormal,
         ),
       ),
-      home: const Login(),
+      home: const Splash(),
     );
   }
+}
+
+_initializeFirebase() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }

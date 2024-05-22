@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "595201228387",
+    "project_id": "chat-chit-c8a49",
+    "storage_bucket": "chat-chit-c8a49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595201228387:android:cdf3abddfbe7a94c1fc256",
+        "android_client_info": {
+          "package_name": "com.example.chatchit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595201228387-89sc38ga0kga0a090k35j7iifiaqudj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chatchit",
+            "certificate_hash": "280e54d121b7f9d1cf21bf61a47c3898d6f50497"
+          }
+        },
+        {
+          "client_id": "595201228387-tpv27q50r1vehjbtls8rjh5bhrontruu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPJRyfwSKUstBVItxT8rs-ElB07Y9_4HQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595201228387-tpv27q50r1vehjbtls8rjh5bhrontruu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "595201228387-4gf6nh2ibbolardvnmfm2vlqg2f5bevc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.chatchit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

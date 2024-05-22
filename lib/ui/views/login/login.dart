@@ -1,7 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:chatchit/helper/dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chatchit/ui/views/home/home.dart';
 import 'package:chatchit/ui/common/app_colors.dart';
 import 'package:chatchit/ui/common/ui_helpers.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -20,6 +24,42 @@ class _LoginState extends State<Login> {
         _isAnimate = true;
       });
     });
+  }
+
+  // handles google login button click
+  _handleGoogleBtnClick() {
+    Dialogs.showProgressBar(context);
+    _signInWithGoogle().then(
+      (user) async {
+        Navigator.pop(context);
+        if (mounted) {
+          if (user != null) {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => const Home()));
+          }
+        }
+      },
+    ).catchError((error) {
+      print('Error signing in with Google: $error');
+    });
+  }
+
+  Future<UserCredential?> _signInWithGoogle() async {
+    try {
+      await InternetAddress.lookup("google.com");
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      print('Error signing in with Google: $e');
+      Dialogs.showSnackbar(context, "Something went WRONG");
+    }
+    return null;
   }
 
   @override
@@ -46,8 +86,7 @@ class _LoginState extends State<Login> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: orangeNormal, elevation: 1),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (_) => const Home()));
+                  _handleGoogleBtnClick();
                 },
                 icon: Image.asset('assets/img/google.png',
                     height: mq.height * .04),

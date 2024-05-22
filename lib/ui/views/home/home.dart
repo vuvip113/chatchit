@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:chatchit/repositories/api.dart';
 import 'package:chatchit/ui/common/app_colors.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:chatchit/ui/common/widgets/chat_user_card.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,12 +30,23 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.only(bottom: 10),
         child: FloatingActionButton(
             backgroundColor: orangeNormal,
-            onPressed: () {},
+            onPressed: () async {
+              await APIs.auth.signOut();
+              await GoogleSignIn().signOut();
+            },
             child: const Icon(
               Icons.add_comment_rounded,
               color: kcVeryLightGrey,
             )),
       ),
+
+      body: ListView.builder(
+          padding: const EdgeInsets.only(top: 4),
+          physics: const BouncingScrollPhysics(),
+          itemCount: 16,
+          itemBuilder: (context, index) {
+            return const ChatUserCard();
+          }),
     );
   }
 }
