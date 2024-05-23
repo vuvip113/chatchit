@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:chatchit/helper/dialog.dart';
+import 'package:chatchit/repositories/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chatchit/ui/views/home/home.dart';
 import 'package:chatchit/ui/common/app_colors.dart';
@@ -32,10 +33,15 @@ class _LoginState extends State<Login> {
     _signInWithGoogle().then(
       (user) async {
         Navigator.pop(context);
-        if (mounted) {
-          if (user != null) {
+        if (user != null) {
+          if (await APIs.userExists() && mounted) {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (_) => const Home()));
+          } else {
+            APIs.createUser().then((value) {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => const Home()));
+            });
           }
         }
       },

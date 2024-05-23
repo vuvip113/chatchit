@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:chatchit/models/chat_user.dart';
 import 'package:chatchit/ui/common/app_colors.dart';
 import 'package:chatchit/ui/common/ui_helpers.dart';
+import 'package:chatchit/ui/views/chat/chat_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatUserCard extends StatefulWidget {
-  const ChatUserCard({super.key});
+  final ChatUser user;
+
+  const ChatUserCard({super.key, required this.user});
   @override
   State<ChatUserCard> createState() => _ChatUserCardState();
 }
@@ -13,28 +19,47 @@ class _ChatUserCardState extends State<ChatUserCard> {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
-      color: orangeLightActive,
+      color: orangeLight,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
       child: InkWell(
+        borderRadius: BorderRadius.circular(13),
         onTap: () {},
-        child: const ListTile(
-          leading: CircleAvatar(
-            child: Icon(Icons.person),
+        child: ListTile(
+          leading: InkWell(
+            borderRadius: BorderRadius.circular(13),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const ChatScreen()));
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(13),
+              child: CachedNetworkImage(
+                width: mq.height * .055,
+                height: mq.height * .055,
+                imageUrl: widget.user.image,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) =>
+                    const CircleAvatar(child: Icon(CupertinoIcons.person)),
+              ),
+            ),
           ),
           title: Text(
-            "VU tran",
-            style: TextStyle(
+            widget.user.name,
+            style: const TextStyle(
               fontWeight: FontWeight.w700,
             ),
           ),
           subtitle: Text(
-            "TIn nhan gan nhat",
+            widget.user.about,
             maxLines: 1,
           ),
-          trailing: Text(
-            "12:00 AM",
-            style: TextStyle(color: Colors.black54),
+          trailing: Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+                color: Colors.greenAccent.shade400,
+                borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),

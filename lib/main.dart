@@ -28,8 +28,12 @@ class MyApp extends StatelessWidget {
       title: 'We Chat',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
-        textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: kcVeryLightGrey),
+        textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
+        colorScheme: const ColorScheme.light(
+          // surface: orangeNormal,
+          primary: orangeLight,
+          // onPrimary: orangeLight,
+        ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           elevation: 1,

@@ -6,7 +6,7 @@ class Dialogs {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
           content: Text(msg),
-          backgroundColor: Colors.orange.withOpacity(.8),
+          backgroundColor: orangeNormal,
           behavior: SnackBarBehavior.floating),
     );
   }
