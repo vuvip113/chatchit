@@ -24,14 +24,14 @@ class _ChatUserCardState extends State<ChatUserCard> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
       child: InkWell(
         borderRadius: BorderRadius.circular(13),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => ChatScreen(user: widget.user)));
+        },
         child: ListTile(
           leading: InkWell(
             borderRadius: BorderRadius.circular(13),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const ChatScreen()));
-            },
+            onTap: () {},
             child: ClipRRect(
               borderRadius: BorderRadius.circular(13),
               child: CachedNetworkImage(

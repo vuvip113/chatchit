@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:chatchit/models/chat_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -77,5 +76,9 @@ class APIs {
     await firestore.collection('users').doc(user.uid).update({
       "image": me.image,
     });
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages() {
+    return firestore.collection('messages').snapshots();
   }
 }
